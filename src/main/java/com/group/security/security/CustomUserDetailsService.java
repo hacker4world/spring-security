@@ -36,4 +36,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         );
 
     }
+
+    public String hello() {
+        return "";
+    }
+
 }

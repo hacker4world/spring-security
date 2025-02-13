@@ -29,7 +29,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/api/student/login", "/api/student/signup").permitAll();
-                    auth.anyRequest().authenticated();
+                    auth.requestMatchers("/api/student/reset-password").authenticated();
+                    auth.requestMatchers("/api/student/create").hasRole("ADMIN");
                 });
         return http.build();
     }

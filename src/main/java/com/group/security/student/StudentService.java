@@ -45,16 +45,17 @@ public class StudentService {
     }
 
     public String login(LoginDto loginData) {
+
         try {
             authenticationProvider.authenticate(
                     new UsernamePasswordAuthenticationToken(loginData.getEmail(), loginData.getPassword())
             );
 
             return "Login successful";
-
         } catch (Exception e) {
-            throw new IllegalStateException("Invalid login credentials");
+            return "Email or password incorrect";
         }
+
     }
 
 }
