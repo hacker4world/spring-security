@@ -1,5 +1,6 @@
 package com.group.security.student;
 
+import com.group.security.security.JwtService;
 import com.group.security.student.dto.LoginDto;
 import com.group.security.student.dto.SignupDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,16 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationProvider authenticationProvider;
+    private final JwtService jwtUtil;
+    private final JwtService jwtService;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository, PasswordEncoder passwordEncoder, AuthenticationProvider authenticationProvider) {
+    public StudentService(StudentRepository studentRepository, PasswordEncoder passwordEncoder, AuthenticationProvider authenticationProvider, JwtService jwtUtil, JwtService jwtService) {
         this.studentRepository = studentRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationProvider = authenticationProvider;
+        this.jwtUtil = jwtUtil;
+        this.jwtService = jwtService;
     }
 
     public String signup(SignupDto signupData) {
@@ -51,7 +56,7 @@ public class StudentService {
                     new UsernamePasswordAuthenticationToken(loginData.getEmail(), loginData.getPassword())
             );
 
-            return "Login successful";
+            return jwtService.createToken(loginData.getEmail());
         } catch (Exception e) {
             return "Email or password incorrect";
         }

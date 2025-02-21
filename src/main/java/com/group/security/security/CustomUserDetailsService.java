@@ -3,6 +3,8 @@ package com.group.security.security;
 import com.group.security.student.Student;
 import com.group.security.student.StudentRepository;
 import com.group.security.student.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+    private static final Logger log = LoggerFactory.getLogger(CustomUserDetailsService.class);
     private final UserRepository userRepository;
 
     public CustomUserDetailsService(UserRepository userRepository) {
